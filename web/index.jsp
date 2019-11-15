@@ -5,7 +5,8 @@
   Time: 19:44
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@page pageEncoding="UTF-8"%>
 <html lang="zh">
   <head>
     <meta charset="UTF-8">
@@ -20,25 +21,21 @@
 
   <body class="mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-theme-accent-pink mdui-loaded">
     <script>
+        request();
         function buttonSubmit() {
-            let form = document.createElement("form");
-            form.setAttribute("visible","false");
+            let form = document.getElementById("submitForm");
             let username = document.createElement("input");
-            let content = document.getElementById("replyContent");
             let input = document.createElement("input");
             username.type = "text";
             username.name = "username";
             username.value = document.getElementById("username").value;
+            form.appendChild(username);
             input.type = "text";
             input.name = "replyContent";
-            input.value = content.value;
-            form.appendChild(username);
+            input.value = document.getElementById("replyContent").value;
             form.appendChild(input);
-            form.method = "POST";
-            form.action = "./reply";
-            document.body.appendChild(form);
             form.submit();
-            document.body.removeChild(form);
+            return false;
         }
     </script>
     <header class="mdui-appbar mdui-appbar-fixed">
@@ -63,11 +60,11 @@
       <div class="mdui-container">
         <div class="mdui-textfield mdui-textfield-floating-label">
           <label class="mdui-textfield-label">用户名</label>
-          <input class="mdui-textfield-input" name="username" type="text" id="username" required/>
+            <label for="username"></label><input class="mdui-textfield-input" name="username" type="text" id="username" required/>
           <div class="mdui-textfield-error">用户名不能为空</div>
         </div>
         <div class="mdui-textfield">
-          <textarea class="mdui-textfield-input" id="replyContent" rows="8" placeholder="回复文本"></textarea>
+            <label for="replyContent"></label><textarea class="mdui-textfield-input" id="replyContent" rows="8" placeholder="回复文本"></textarea>
         </div>
         <div class="mdui-dialog-actions">
           <button class="mdui-btn mdui-ripple" mdui-dialog-close>取消</button>
@@ -77,5 +74,6 @@
       <br>
       <br>
     </div>
+    <form id="submitForm" method="POST" action="./reply" hidden></form>
   </body>
 </html>

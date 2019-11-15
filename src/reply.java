@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspApplicationContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 class ReplyContent{
@@ -22,7 +23,7 @@ class ReplyContent{
 
 @WebServlet(name="reply",urlPatterns={"/reply"})
 public class reply extends HttpServlet {
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json;charset=UTF-8");
         PrintWriter out = resp.getWriter();
         ServletContext context = getServletContext();
@@ -31,11 +32,12 @@ public class reply extends HttpServlet {
         out.println(json);
     }
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
         ReplyContent rep = new ReplyContent(req.getParameter("username"),req.getParameter("replyContent"));
         ServletContext context = getServletContext();
         ArrayList<ReplyContent> arr = (ArrayList<ReplyContent>) context.getAttribute("reply");
         if(arr == null){
-            arr = new ArrayList<ReplyContent>();
+            arr = new ArrayList<>();
         }
         arr.add(rep);
         while(arr.size()>100){

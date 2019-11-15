@@ -32,12 +32,11 @@ function request() {
                     li2.appendChild(div1);
                     replist.appendChild(li2)
                 }
-            )
+            );
+            window.scrollTo(0,document.body.scrollHeight);
         }
     };
     reply.open("GET", "./reply", true);
     reply.send();
-    window.scrollTo(0,document.body.scrollHeight);
-    document.getElementById('reply-list').scrollTop = document.getElementById('reply-list').scrollHeight;
 }
 
