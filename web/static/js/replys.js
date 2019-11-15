@@ -7,15 +7,18 @@ function request() {
             let myObj = JSON.parse(this.responseText);
 
             // document.getElementById("demo").innerHTML = myObj.name;
-            let replist = document.getElementById("reply-list")
+            let replist = document.getElementById("reply-list");
             replist.innerHTML = "";
+            if(myObj == null){
+                return;
+            }
             myObj.forEach(
                 it => {
                     let li = document.createElement("li");
                     li.setAttribute("class","mdui-divider-inset mdui-m-y-0");
                     replist.appendChild(li);
                     let li2 = document.createElement("li");
-                    li2.setAttribute("class","mdui-list-item mdui-ripple")
+                    li2.setAttribute("class","mdui-list-item mdui-ripple");
                     let div1 = document.createElement("div");
                     div1.setAttribute("class","mdui-list-item-content mdui-container");
                     let div2 = document.createElement("div");
