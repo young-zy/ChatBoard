@@ -23,19 +23,13 @@
     <script>
         request();
         function buttonSubmit() {
-            let form = document.getElementById("submitForm");
-            let username = document.createElement("input");
-            let input = document.createElement("input");
-            username.type = "text";
-            username.name = "username";
-            username.value = document.getElementById("username").value;
-            form.appendChild(username);
-            input.type = "text";
-            input.name = "replyContent";
-            input.value = document.getElementById("replyContent").value;
-            form.appendChild(input);
-            form.submit();
-            return false;
+            let xhttp = new XMLHttpRequest();
+            let username=document.getElementById("username").value;
+            let replyContent = document.getElementById("replyContent").value;
+            xhttp.open("POST", "./reply?username="+username+"&replyContent="+replyContent,true);
+            xhttp.send();
+            // form.submit();
+            // return false;
         }
     </script>
     <header class="mdui-appbar mdui-appbar-fixed">
